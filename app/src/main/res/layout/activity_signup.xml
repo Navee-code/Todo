@@ -5,6 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:theme="@style/Theme.MaterialComponents.Light.NoActionBar"
+    android:background="@drawable/background"
     tools:context=".SignupActivity">
 
     <ProgressBar
@@ -22,7 +23,7 @@
 
     <androidx.cardview.widget.CardView
         android:id="@+id/card_view2"
-        android:layout_width="356dp"
+        android:layout_width="350dp"
         android:layout_height="600dp"
         android:layout_marginBottom="150dp"
         app:cardCornerRadius="12dp"
@@ -38,7 +39,6 @@
             android:orientation="vertical">
 
             <TextView
-
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center_vertical|center_horizontal"
@@ -48,7 +48,8 @@
 
             <com.google.android.material.textfield.TextInputLayout
                 style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
-                android:layout_width="match_parent"
+                android:layout_width="330dp"
+                android:layout_gravity="center_vertical|center_horizontal"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="20dp"
                 android:hint="User Name">
@@ -63,7 +64,8 @@
 
             <com.google.android.material.textfield.TextInputLayout
                 style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
-                android:layout_width="match_parent"
+                android:layout_width="330dp"
+                android:layout_gravity="center_vertical|center_horizontal"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="20dp"
                 android:hint="Email">
@@ -80,7 +82,8 @@
             <com.google.android.material.textfield.TextInputLayout
                 android:id="@+id/hint_age"
                 style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
-                android:layout_width="match_parent"
+                android:layout_width="330dp"
+                android:layout_gravity="center_vertical|center_horizontal"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="20dp"
                 android:hint="Select your Date of Birth">
@@ -96,8 +99,8 @@
 
             <com.google.android.material.textfield.TextInputLayout
                 style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
-
-                android:layout_width="match_parent"
+                android:layout_width="330dp"
+                android:layout_gravity="center_vertical|center_horizontal"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="20dp"
                 android:hint="password"
@@ -114,7 +117,8 @@
 
             <com.google.android.material.textfield.TextInputLayout
                 style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
-                android:layout_width="match_parent"
+                android:layout_width="330dp"
+                android:layout_gravity="center_vertical|center_horizontal"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="20dp"
                 android:hint="Conform Password"

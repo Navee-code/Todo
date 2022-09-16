@@ -19,6 +19,11 @@ class LoginActivity : AppCompatActivity() {
             intent= Intent(this,SignupActivity::class.java)
             startActivity(intent)
         }
+        binding.login.setOnClickListener {
+            intent= Intent(this,HomeActivity::class.java)
+            startActivity(intent)
+        }
 
     }
+
 }
