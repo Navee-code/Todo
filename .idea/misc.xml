@@ -7,14 +7,17 @@
         <entry key="..\:/Users/UMIN/Desktop/TableNotes/app/src/main/res/drawable/ic_baseline_account_circle_24.xml" value="0.1645" />
         <entry key="..\:/Users/UMIN/Desktop/TableNotes/app/src/main/res/drawable/ic_baseline_add_24.xml" value="0.1645" />
         <entry key="..\:/Users/UMIN/Desktop/TableNotes/app/src/main/res/drawable/text_style.xml" value="0.12" />
+        <entry key="..\:/Users/UMIN/Desktop/TableNotes/app/src/main/res/layout/activity_create_todo.xml" value="0.22554347826086957" />
         <entry key="..\:/Users/UMIN/Desktop/TableNotes/app/src/main/res/layout/activity_home.xml" value="0.24003623188405798" />
         <entry key="..\:/Users/UMIN/Desktop/TableNotes/app/src/main/res/layout/activity_login.xml" value="0.1" />
         <entry key="..\:/Users/UMIN/Desktop/TableNotes/app/src/main/res/layout/activity_main.xml" value="0.17708333333333334" />
+        <entry key="..\:/Users/UMIN/Desktop/TableNotes/app/src/main/res/layout/activity_profile.xml" value="0.22554347826086957" />
         <entry key="..\:/Users/UMIN/Desktop/TableNotes/app/src/main/res/layout/activity_signup.xml" value="0.264" />
+        <entry key="..\:/Users/UMIN/Desktop/TableNotes/app/src/main/res/layout/activity_todo_list.xml" value="0.22554347826086957" />
         <entry key="..\:/Users/UMIN/Desktop/TableNotes/app/src/main/res/layout/fragment_profile.xml" value="0.20427350427350427" />
         <entry key="..\:/Users/UMIN/Desktop/TableNotes/app/src/main/res/layout/fragment_todo.xml" value="0.22554347826086957" />
         <entry key="..\:/Users/UMIN/Desktop/TableNotes/app/src/main/res/layout/profile_fragment.xml" value="0.17008196721311475" />
-        <entry key="..\:/Users/UMIN/Desktop/TableNotes/app/src/main/res/layout/user_list.xml" value="0.11347517730496454" />
+        <entry key="..\:/Users/UMIN/Desktop/TableNotes/app/src/main/res/layout/user_list.xml" value="0.2" />
         <entry key="..\:/Users/UMIN/Desktop/TableNotes/app/src/main/res/menu/bottom_navigation.xml" value="0.24895833333333334" />
         <entry key="..\:/Users/UMIN/Desktop/TableNotes/app/src/main/res/menu/logout.xml" value="0.23125" />
         <entry key="app/src/main/res/layout/activity_home.xml" value="0.1" />

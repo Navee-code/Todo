@@ -22,7 +22,7 @@ class SignupActivity : AppCompatActivity() {
     private lateinit var auth:FirebaseAuth
     private  var DOB:String=""
     private val db = Firebase.database
-
+    val share= SharedPrefer()
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding= ActivitySignupBinding.inflate(layoutInflater)
@@ -72,11 +72,12 @@ if(name.isEmpty()){
                 auth.createUserWithEmailAndPassword(email, password)
                     .addOnCompleteListener { signIn ->
                         if (signIn.isSuccessful) {
-                            val myRef = db.getReference("TODO").child(name)
+                            val myRef = db.getReference("TODO").child(email.replace('.','_'))
                             myRef.child("NAME").setValue(name)
                             myRef.child("EMAIL").setValue(email)
                             myRef.child("AGE").setValue(binding.signUpAge.text.toString())
                             myRef.child("DOB").setValue(DOB)
+
 
                             Toast.makeText(applicationContext,"registered",Toast.LENGTH_LONG).show()
                             binding.progressCircular2.visibility= View.INVISIBLE

@@ -21,6 +21,7 @@ class LoginActivity : AppCompatActivity() {
     private lateinit var binding: ActivityLoginBinding
     private lateinit var auth: FirebaseAuth
     private lateinit var user: FirebaseUser
+    val share= SharedPrefer()
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
@@ -64,6 +65,7 @@ class LoginActivity : AppCompatActivity() {
             auth.signInWithEmailAndPassword(email, password)
                 .addOnCompleteListener { signIn ->
                     if (signIn.isSuccessful) {
+
                         intent= Intent(this,HomeActivity::class.java)
                         startActivity(intent)
                         binding.progressCircular2.visibility=View.INVISIBLE
