@@ -22,9 +22,7 @@ class RvTodoList(list1: ArrayList<String>) : RecyclerView.Adapter<RvTodoList.Vie
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
         holder.text.text= list.get(position)
-        holder.itemView.setOnClickListener {
 
-        }
     }
 
     override fun getItemCount(): Int {

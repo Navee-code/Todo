@@ -24,7 +24,7 @@ class RvUserList(list1: ArrayList<String>) : RecyclerView.Adapter<RvUserList.Vie
         holder.text.text= list.get(position)
         holder.itemView.setOnClickListener {
             var intent= Intent(holder.context, ListTodo::class.java)
-            intent.putExtra("Body",position)
+            intent.putExtra("Body",list.get(position))
             holder.context.startActivity(intent)
         }
         }

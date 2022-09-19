@@ -3,6 +3,7 @@ package com.example.todo.activity
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.util.Log
 import android.view.Menu
 import android.view.MenuItem
 import android.widget.Toast
@@ -51,22 +52,20 @@ class HomeActivity : AppCompatActivity() {
         myRef.addValueEventListener(object : ValueEventListener {
             override fun onDataChange(snapshot: DataSnapshot) {
                             val snap= snapshot.children
+                list1.clear()
                   for(it in snap){
                       keys.add(snapshot.child(it.key.toString()).key.toString())
+                      if(admin.toString().replace('.','_') != it.key.toString()) {
+                          list1.add(snapshot.child(it.key.toString()).child("NAME").value.toString())
+                      }
                   }
 
-
-                list1.clear()
-
                 binding.userId.text=snapshot.child(admin.toString().replace('.','_')).child("NAME").value.toString()
-                                    for(item in snap){
-                        if(admin.toString().replace('.','_') != item.key) {
-                            list1.add(snapshot.child(item.key.toString()).child("NAME").value.toString())
-                        }
-                        }
+
+
                 binding.recycler.layoutManager = LinearLayoutManager(applicationContext, RecyclerView.VERTICAL, false)
                 binding.recycler.adapter= RvUserList(list1)
-                ListTodo().setKey(keys)
+
 
             }
 
@@ -88,8 +87,6 @@ class HomeActivity : AppCompatActivity() {
     }
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
         auth.signOut()
-
-
         intent = Intent(this, LoginActivity::class.java)
         startActivity(intent)
         return super.onOptionsItemSelected(item)
@@ -104,7 +101,6 @@ class HomeActivity : AppCompatActivity() {
         super.onBackPressed()
     }
 }
-
 
 //fragment close
 //val fragment = SettingFragment.newInstance()

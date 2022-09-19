@@ -24,6 +24,7 @@ class ListTodo : AppCompatActivity() {
     private lateinit var binding: ActivityListTodoBinding
     private var list1=ArrayList<String>()
     private var keyVal=ArrayList<String>()
+   private lateinit var key:String
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -32,19 +33,29 @@ class ListTodo : AppCompatActivity() {
         overridePendingTransition(R.anim.bottom_up, R.anim.nothing,)
         auth= FirebaseAuth.getInstance()
         val db = Firebase.database
-        val key=intent.getIntExtra("Body",0)
-        Log.e("TAG",key.toString())
-        val myRef = db.getReference("TODO").child(key.toString())
+         key= intent.getStringExtra("Body").toString()
+
+
+        val myRef = db.getReference("TODO")
         myRef.addValueEventListener(object : ValueEventListener {
             override fun onDataChange(snapshot: DataSnapshot) {
-                val snap= snapshot.hasChild("Notes")
-                if(snap){
-                    var count=snapshot.child("Notes").childrenCount
-                    for(i in 0 ..count-1){
-                        list1.add(snapshot.child("Notes").child(i.toString()).value.toString())
+                val snap= snapshot.children
+                for(it in snap){
+                   var name= snapshot.child(it.key.toString()).child("NAME").value.toString()
+
+                    if(name.equals(key)){
+
+                        var count=snapshot.child(it.key.toString()).child("Notes").childrenCount
+                        Log.e("TAG",count.toString())
+                        for(i in 1..count-1){
+                            list1.add( snapshot.child(it.key.toString()).child("Notes").child(i.toString()).value.toString())
+                        }
+
                     }
 
                 }
+
+
                 binding.recycler.layoutManager = LinearLayoutManager(applicationContext, RecyclerView.VERTICAL, false)
                 binding.recycler.adapter= RvTodoList(list1)
 
@@ -70,22 +81,10 @@ class ListTodo : AppCompatActivity() {
 
     fun setKey(keys: ArrayList<String>) {
    for(it in keys){
-       keyVal.add(it.toString())
+       keyVal.add(it)
 
    }
     }
 }
-//
-//myRef.addValueEventListener(object : ValueEventListener {
-//    override fun onDataChange(snapshot: DataSnapshot) {
-//
 
-//    }
-//
-//    override fun onCancelled(error: DatabaseError) {
-//        Toast.makeText(applicationContext, error.message.toString(), Toast.LENGTH_SHORT).show()
-//
-//    }
-//
-//})
 
