@@ -50,12 +50,14 @@ class CreateTodoFragment :Fragment() {
             }
         })
         button.setOnClickListener {
-
                 var todos= text1.editText?.text.toString()
+            if(todos.isNotEmpty()) {
                 notes.add(todos)
+            }
                 myRef.child("Notes").setValue(notes)
 
-
+            val manager = requireActivity().supportFragmentManager
+            manager.beginTransaction().remove(this).commit()
 
 
         }

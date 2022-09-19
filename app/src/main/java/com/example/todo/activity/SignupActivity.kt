@@ -40,7 +40,6 @@ class SignupActivity : AppCompatActivity() {
         val password=binding.signUpPassword.text.toString()
 
 
-
 if(name.isEmpty()){
     binding.signUpName.error = "FILL"
     binding.signUpName.requestFocus()

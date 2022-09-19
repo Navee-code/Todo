@@ -6,12 +6,14 @@ import android.os.Bundle
 import android.view.Menu
 import android.view.MenuItem
 import android.widget.Toast
+import androidx.compose.runtime.key
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.todo.R
 import com.example.todo.adaptor.RvUserList
 import com.example.todo.databinding.ActivityHomeBinding
 import com.example.todo.fragment.CreateTodoFragment
+import com.example.todo.fragment.ProfileFragment
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.database.DataSnapshot
 import com.google.firebase.database.DatabaseError
@@ -24,6 +26,7 @@ class HomeActivity : AppCompatActivity() {
     private lateinit var auth: FirebaseAuth
     private lateinit var binding: ActivityHomeBinding
     private var list1=ArrayList<String>()
+    private var keys=ArrayList<String>()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -33,10 +36,26 @@ class HomeActivity : AppCompatActivity() {
         val admin= auth.currentUser?.email
         val db = Firebase.database
         val myRef = db.getReference("TODO")
+        binding.bottomNavigationView.setOnNavigationItemReselectedListener {
+            when (it.itemId) {
+                R.id.home -> {
+                    return@setOnNavigationItemReselectedListener
+                }
+                R.id.home2 -> {
+                    supportFragmentManager.beginTransaction().replace(R.id.frame, ProfileFragment()).commit()
+                    return@setOnNavigationItemReselectedListener
+                }
+            }
+        }
 
         myRef.addValueEventListener(object : ValueEventListener {
             override fun onDataChange(snapshot: DataSnapshot) {
                             val snap= snapshot.children
+                  for(it in snap){
+                      keys.add(snapshot.child(it.key.toString()).key.toString())
+                  }
+
+
                 list1.clear()
 
                 binding.userId.text=snapshot.child(admin.toString().replace('.','_')).child("NAME").value.toString()
@@ -47,6 +66,7 @@ class HomeActivity : AppCompatActivity() {
                         }
                 binding.recycler.layoutManager = LinearLayoutManager(applicationContext, RecyclerView.VERTICAL, false)
                 binding.recycler.adapter= RvUserList(list1)
+                ListTodo().setKey(keys)
 
             }
 
@@ -69,6 +89,7 @@ class HomeActivity : AppCompatActivity() {
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
         auth.signOut()
 
+
         intent = Intent(this, LoginActivity::class.java)
         startActivity(intent)
         return super.onOptionsItemSelected(item)
@@ -83,5 +104,14 @@ class HomeActivity : AppCompatActivity() {
         super.onBackPressed()
     }
 }
+
+
+//fragment close
+//val fragment = SettingFragment.newInstance()
+//
+//// always create a new transaction to avoid crash
+//val mTransaction = fragmentManager.beginTransaction()
+//mTransaction.add(R.id.settingDrawer, fragment)
+//mTransaction.commit()
 
 

@@ -9,7 +9,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.example.todo.R
 import com.example.todo.activity.ListTodo
 
-class RvUserList(list1: ArrayList<String>) : RecyclerView.Adapter<RvUserList.ViewHolder>() {
+class RvTodoList(list1: ArrayList<String>) : RecyclerView.Adapter<RvTodoList.ViewHolder>() {
 
 
     private  var list=list1
@@ -23,19 +23,17 @@ class RvUserList(list1: ArrayList<String>) : RecyclerView.Adapter<RvUserList.Vie
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
         holder.text.text= list.get(position)
         holder.itemView.setOnClickListener {
-            var intent= Intent(holder.context, ListTodo::class.java)
-            intent.putExtra("Body",position)
-            holder.context.startActivity(intent)
+
         }
-        }
+    }
 
     override fun getItemCount(): Int {
-       return list.size
+        return list.size
     }
 
 
 
-    inner class ViewHolder(itemVIew: View):RecyclerView.ViewHolder(itemVIew){
+    inner class ViewHolder(itemVIew: View): RecyclerView.ViewHolder(itemVIew){
         val text=itemVIew.findViewById<TextView>(R.id.todo_text)
         var context= itemVIew.context
 
