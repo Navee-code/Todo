@@ -6,7 +6,7 @@
     android:layout_height="match_parent"
    android:background="@drawable/background"
     android:theme="@style/Theme.MaterialComponents.Light.NoActionBar"
-    tools:context=".LoginActivity">
+    tools:context=".activity.LoginActivity">
 
     <ProgressBar
         android:id="@+id/progress_circular2"

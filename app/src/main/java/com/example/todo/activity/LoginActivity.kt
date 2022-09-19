@@ -1,8 +1,7 @@
-package com.example.todo
+package com.example.todo.activity
 
 import android.content.Intent
 import android.os.Bundle
-import android.util.Log
 import android.view.Gravity
 import android.view.View
 import android.widget.Toast
@@ -10,25 +9,20 @@ import androidx.appcompat.app.AppCompatActivity
 import com.example.todo.databinding.ActivityLoginBinding
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.FirebaseUser
-import com.google.firebase.database.DataSnapshot
-import com.google.firebase.database.DatabaseError
-import com.google.firebase.database.ValueEventListener
-import com.google.firebase.database.ktx.database
-import com.google.firebase.ktx.Firebase
 
 
 class LoginActivity : AppCompatActivity() {
     private lateinit var binding: ActivityLoginBinding
     private lateinit var auth: FirebaseAuth
     private lateinit var user: FirebaseUser
-    val share= SharedPrefer()
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
 
         auth= FirebaseAuth.getInstance()
         if(auth.currentUser!=null) {
-            intent= Intent(this,HomeActivity::class.java)
+            intent= Intent(this, HomeActivity::class.java)
             startActivity(intent)
 
         }else{
@@ -36,7 +30,7 @@ class LoginActivity : AppCompatActivity() {
             setContentView(binding.root)
             binding.progressCircular2.visibility= View.INVISIBLE
             binding.signup.setOnClickListener{
-                intent= Intent(this,SignupActivity::class.java)
+                intent= Intent(this, SignupActivity::class.java)
                 startActivity(intent)
             }
             binding.login.setOnClickListener {
@@ -66,8 +60,9 @@ class LoginActivity : AppCompatActivity() {
                 .addOnCompleteListener { signIn ->
                     if (signIn.isSuccessful) {
 
-                        intent= Intent(this,HomeActivity::class.java)
+                        intent= Intent(this, HomeActivity::class.java)
                         startActivity(intent)
+
                         binding.progressCircular2.visibility=View.INVISIBLE
                         Toast.makeText(applicationContext,"registered", Toast.LENGTH_LONG).show()
 
@@ -91,18 +86,3 @@ class LoginActivity : AppCompatActivity() {
 }
 
 
-//val database = Firebase.database
-//val myRef = database.getReference("Message").child("sup")
-
-//myRef.addValueEventListener(object: ValueEventListener {
-//    override fun onDataChange(snapshot: DataSnapshot) {
-//
-//        Toast.makeText(applicationContext,"success",Toast.LENGTH_LONG).show()
-//
-//    }
-//
-//    override fun onCancelled(error: DatabaseError) {
-//        Toast.makeText(applicationContext,"Failed",Toast.LENGTH_LONG).show()
-//    }
-//
-//})

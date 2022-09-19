@@ -1,4 +1,4 @@
-package com.example.todo
+package com.example.todo.activity
 
 import android.app.DatePickerDialog
 import android.content.Intent
@@ -9,9 +9,6 @@ import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import com.example.todo.databinding.ActivitySignupBinding
 import com.google.firebase.auth.FirebaseAuth
-import com.google.firebase.database.DataSnapshot
-import com.google.firebase.database.DatabaseError
-import com.google.firebase.database.ValueEventListener
 import com.google.firebase.database.ktx.database
 import com.google.firebase.ktx.Firebase
 import java.text.SimpleDateFormat
@@ -22,7 +19,7 @@ class SignupActivity : AppCompatActivity() {
     private lateinit var auth:FirebaseAuth
     private  var DOB:String=""
     private val db = Firebase.database
-    val share= SharedPrefer()
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding= ActivitySignupBinding.inflate(layoutInflater)
@@ -63,7 +60,6 @@ if(name.isEmpty()){
     signUp(email
         ,password,name)
 
-
 }
     }
 
@@ -77,11 +73,9 @@ if(name.isEmpty()){
                             myRef.child("EMAIL").setValue(email)
                             myRef.child("AGE").setValue(binding.signUpAge.text.toString())
                             myRef.child("DOB").setValue(DOB)
-
-
                             Toast.makeText(applicationContext,"registered",Toast.LENGTH_LONG).show()
                             binding.progressCircular2.visibility= View.INVISIBLE
-                            intent=Intent(applicationContext,HomeActivity::class.java)
+                            intent=Intent(applicationContext, HomeActivity::class.java)
                             startActivity(intent)
 
                         } else {
@@ -112,7 +106,7 @@ if(name.isEmpty()){
 
     }
     override fun onBackPressed() {
-       intent= Intent(this,LoginActivity::class.java)
+       intent= Intent(this, LoginActivity::class.java)
         startActivity(intent)
         super.onBackPressed()
     }
