@@ -3,8 +3,10 @@ package com.example.todo.activity
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.util.Log
 import android.view.Menu
 import android.view.MenuItem
+import android.view.View
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatDelegate
 import androidx.lifecycle.ViewModelProvider
@@ -31,10 +33,18 @@ class HomeActivity : AppCompatActivity() {
     private var keys=ArrayList<String>()
     private lateinit var name:String
     var  state=true
+
     override fun onCreate(savedInstanceState: Bundle?) {
+
+        if(MyPreferences(this).darkMode==1){
+            setTheme(R.style.Dark_Todo)
+        }else{
+            setTheme(R.style.Theme_Todo)
+        }
         super.onCreate(savedInstanceState)
         binding= ActivityHomeBinding.inflate(layoutInflater)
         setContentView(binding.root)
+
         auth= FirebaseAuth.getInstance()
         val admin= auth.currentUser?.email
         val db = Firebase.database
@@ -47,22 +57,22 @@ class HomeActivity : AppCompatActivity() {
             when (it.itemId) {
 
                 R.id.home -> {
-
                     if(state){
-                        AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_YES)
+
+                        intent= Intent(this, HomeActivity::class.java)
+                        startActivity(intent)
+                        finish()
                         MyPreferences(this).darkMode = 1
                         state=false
-
-                        delegate.applyDayNight()
                     }else{
-                        AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO)
+
+                        intent= Intent(this, HomeActivity::class.java)
+                        startActivity(intent)
+                        finish()
                         MyPreferences(this).darkMode = 0
                         state=true
 
-                        delegate.applyDayNight()
                     }
-
-
                     return@setOnNavigationItemReselectedListener
                 }
                 R.id.home2 -> {
@@ -73,12 +83,12 @@ class HomeActivity : AppCompatActivity() {
         }
         binding.userInfo.setOnClickListener{
             var intent= Intent(applicationContext, ListTodo::class.java)
-            intent.putExtra("Body","Aravind")
+            intent.putExtra("Body",name)
             startActivity(intent)
         }
-
         myRef.addValueEventListener(object : ValueEventListener {
             override fun onDataChange(snapshot: DataSnapshot) {
+
                             val snap= snapshot.children
                 list1.clear()
                   for(it in snap){

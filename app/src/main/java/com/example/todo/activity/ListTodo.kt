@@ -29,13 +29,9 @@ class ListTodo : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+
         binding= ActivityListTodoBinding.inflate(layoutInflater)
         setContentView(binding.root)
-        if(MyPreferences(this).darkMode==0){
-            AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_YES)
-
-            delegate.applyDayNight()
-        }
         overridePendingTransition(R.anim.bottom_up, R.anim.nothing,)
         auth= FirebaseAuth.getInstance()
         val db = Firebase.database
