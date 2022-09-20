@@ -5,8 +5,10 @@ import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
 import android.widget.Toast
+import androidx.appcompat.app.AppCompatDelegate
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import com.example.todo.MyPreferences
 import com.example.todo.R
 import com.example.todo.adaptor.RvTodoList
 import com.example.todo.adaptor.RvUserList
@@ -23,17 +25,22 @@ class ListTodo : AppCompatActivity() {
     private lateinit var auth: FirebaseAuth
     private lateinit var binding: ActivityListTodoBinding
     private var list1=ArrayList<String>()
-    private var keyVal=ArrayList<String>()
-   private lateinit var key:String
+    private lateinit var key:String
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding= ActivityListTodoBinding.inflate(layoutInflater)
         setContentView(binding.root)
+        if(MyPreferences(this).darkMode==0){
+            AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_YES)
+
+            delegate.applyDayNight()
+        }
         overridePendingTransition(R.anim.bottom_up, R.anim.nothing,)
         auth= FirebaseAuth.getInstance()
         val db = Firebase.database
          key= intent.getStringExtra("Body").toString()
+        title = "$key TODOS"
 
 
         val myRef = db.getReference("TODO")
@@ -47,7 +54,7 @@ class ListTodo : AppCompatActivity() {
 
                         var count=snapshot.child(it.key.toString()).child("Notes").childrenCount
                         Log.e("TAG",count.toString())
-                        for(i in 1..count-1){
+                        for(i in 0..count-1){
                             list1.add( snapshot.child(it.key.toString()).child("Notes").child(i.toString()).value.toString())
                         }
 
@@ -55,7 +62,7 @@ class ListTodo : AppCompatActivity() {
 
                 }
 
-
+                  Log.e("TAG",list1.toString())
                 binding.recycler.layoutManager = LinearLayoutManager(applicationContext, RecyclerView.VERTICAL, false)
                 binding.recycler.adapter= RvTodoList(list1)
 
@@ -79,12 +86,6 @@ class ListTodo : AppCompatActivity() {
         super.onBackPressed()
     }
 
-    fun setKey(keys: ArrayList<String>) {
-   for(it in keys){
-       keyVal.add(it)
-
-   }
-    }
 }
 
 

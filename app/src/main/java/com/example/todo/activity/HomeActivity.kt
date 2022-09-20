@@ -3,13 +3,14 @@ package com.example.todo.activity
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import android.util.Log
 import android.view.Menu
 import android.view.MenuItem
 import android.widget.Toast
-import androidx.compose.runtime.key
+import androidx.appcompat.app.AppCompatDelegate
+import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import com.example.todo.MyPreferences
 import com.example.todo.R
 import com.example.todo.adaptor.RvUserList
 import com.example.todo.databinding.ActivityHomeBinding
@@ -28,7 +29,8 @@ class HomeActivity : AppCompatActivity() {
     private lateinit var binding: ActivityHomeBinding
     private var list1=ArrayList<String>()
     private var keys=ArrayList<String>()
-
+    private lateinit var name:String
+    var  state=true
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding= ActivityHomeBinding.inflate(layoutInflater)
@@ -37,9 +39,30 @@ class HomeActivity : AppCompatActivity() {
         val admin= auth.currentUser?.email
         val db = Firebase.database
         val myRef = db.getReference("TODO")
+        checkTheme()
         binding.bottomNavigationView.setOnNavigationItemReselectedListener {
+            if(MyPreferences(this).darkMode==1){
+                state=false
+            }
             when (it.itemId) {
+
                 R.id.home -> {
+
+                    if(state){
+                        AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_YES)
+                        MyPreferences(this).darkMode = 1
+                        state=false
+
+                        delegate.applyDayNight()
+                    }else{
+                        AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO)
+                        MyPreferences(this).darkMode = 0
+                        state=true
+
+                        delegate.applyDayNight()
+                    }
+
+
                     return@setOnNavigationItemReselectedListener
                 }
                 R.id.home2 -> {
@@ -47,6 +70,11 @@ class HomeActivity : AppCompatActivity() {
                     return@setOnNavigationItemReselectedListener
                 }
             }
+        }
+        binding.userInfo.setOnClickListener{
+            var intent= Intent(applicationContext, ListTodo::class.java)
+            intent.putExtra("Body","Aravind")
+            startActivity(intent)
         }
 
         myRef.addValueEventListener(object : ValueEventListener {
@@ -57,6 +85,8 @@ class HomeActivity : AppCompatActivity() {
                       keys.add(snapshot.child(it.key.toString()).key.toString())
                       if(admin.toString().replace('.','_') != it.key.toString()) {
                           list1.add(snapshot.child(it.key.toString()).child("NAME").value.toString())
+                      }else{
+                          name=snapshot.child(it.key.toString()).child("NAME").value.toString()
                       }
                   }
 
@@ -93,6 +123,7 @@ class HomeActivity : AppCompatActivity() {
     }
 
     override fun onBackPressed() {
+
         val a = Intent(Intent.ACTION_MAIN)
         a.addCategory(Intent.CATEGORY_HOME)
         a.flags = Intent.FLAG_ACTIVITY_NEW_TASK
@@ -100,14 +131,21 @@ class HomeActivity : AppCompatActivity() {
         startActivity(a)
         super.onBackPressed()
     }
+    private fun checkTheme() {
+        when (MyPreferences(this).darkMode) {
+            0 -> {
+                AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO)
+                delegate.applyDayNight()
+            }
+            1 -> {
+                AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_YES)
+                delegate.applyDayNight()
+            }
+
+        }
+    }
 }
 
-//fragment close
-//val fragment = SettingFragment.newInstance()
-//
-//// always create a new transaction to avoid crash
-//val mTransaction = fragmentManager.beginTransaction()
-//mTransaction.add(R.id.settingDrawer, fragment)
-//mTransaction.commit()
+
 
 

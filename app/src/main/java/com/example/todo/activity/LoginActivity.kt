@@ -6,6 +6,8 @@ import android.view.Gravity
 import android.view.View
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
+import androidx.appcompat.app.AppCompatDelegate
+import com.example.todo.MyPreferences
 import com.example.todo.databinding.ActivityLoginBinding
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.FirebaseUser
@@ -26,6 +28,10 @@ class LoginActivity : AppCompatActivity() {
             startActivity(intent)
 
         }else{
+            if(MyPreferences(this).darkMode==1){
+                AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_YES)
+                delegate.applyDayNight()
+            }
             binding=ActivityLoginBinding.inflate(layoutInflater)
             setContentView(binding.root)
             binding.progressCircular2.visibility= View.INVISIBLE
@@ -84,5 +90,7 @@ class LoginActivity : AppCompatActivity() {
         super.onBackPressed()
     }
 }
+
+
 
 

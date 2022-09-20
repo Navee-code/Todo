@@ -7,6 +7,8 @@ import android.view.Gravity
 import android.view.View
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
+import androidx.appcompat.app.AppCompatDelegate
+import com.example.todo.MyPreferences
 import com.example.todo.databinding.ActivitySignupBinding
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.database.ktx.database
@@ -22,6 +24,11 @@ class SignupActivity : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+        if(MyPreferences(this).darkMode==0){
+            AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_YES)
+
+            delegate.applyDayNight()
+        }
         binding= ActivitySignupBinding.inflate(layoutInflater)
         setContentView(binding.root)
         binding.progressCircular2.visibility= View.INVISIBLE
